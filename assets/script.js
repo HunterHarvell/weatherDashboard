@@ -40,5 +40,49 @@ function startPage() {
                 humidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
                 windSpeed.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
 
-                
+                // Get 5 day forecast for this city
+                let cityID = response.data.id;
+                let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+                axios.get(forecastQueryURL)
+                    .then(function (response) {
+                        forecast.classList.remove("d-none");
+
+                        const forecastModules = document.querySelectorAll(".forecast");
+                        
+                        for (i = 0; i < forecastModules.length; i++) {
+                            //  parse response to display forecast for next 5 days
+                            forecastModules[i].innerHTML = "";
+                            const forecastIndex = i * 8 + 4;
+                            const forecastDate = new Date(response.data.list[forecastIndex].dt * 1000);
+                            const forecastDay = forecastDate.getDate();
+                            const forecastMonth = forecastDate.getMonth() + 1;
+                            const forecastYear = forecastDate.getFullYear();
+                            const forecastDateModule = document.createElement("p");
+                            forecastDateModule.setAttribute("class", "mt-3 mb-0 forecast-date");
+                            forecastDateModule.innerHTML = forecastMonth + "/" + forecastDay + "/" + forecastYear;
+                            forecastModules[i].append(forecastDateModule);
+
+                            // symbol for forecast weather
+                            const forecastWeatherModule = document.createElement("img");
+                            forecastWeatherModule.setAttribute("src", "https://openweathermap.org/img/wn/" + response.data.list[forecastIndex].weather[0].icon + "@2x.png");
+                            forecastWeatherModule.setAttribute("alt", response.data.list[forecastIndex].weather[0].description);
+                            forecastModules[i].append(forecastWeatherModule);
+                            
+                            // temp for forecast
+                            const forecastTempModule = document.createElement("p");
+                            forecastTempModule.innerHTML = "Temp: " + k2f(response.data.list[forecastIndex].main.temp) + " &#176F";
+                            forecastModules[i].append(forecastTempModule);
+                            
+                            // wind for forecast
+                            const forecastWindModule = document.createElement("p");
+                            forecastWindModule.innerHTML = "Wind: " + response.data.wind.speed + " MPH";
+                            forecastModules[i].append(forecastWindModule);
+                            
+                            // humidity for forecast
+                            const forecastHumidityModule = document.createElement("p");
+                            forecastHumidityModule.innerHTML = "Humidity: " + response.data.list[forecastIndex].main.humidity + "%";
+                            forecastModules[i].append(forecastHumidityModule);
+                        }
+                    })
             });
+    };
