@@ -85,4 +85,20 @@ function startPage() {
                         }
                     })
             });
-    };
+    }
+
+    // event-listener for search button
+    searchBtn.addEventListener("click", function () {
+        const searchTerm = searchInput.value;
+        getWeather(searchTerm);
+        searchHistory.push(searchTerm);
+        localStorage.setItem("search", JSON.stringify(searchHistory));
+        renderSearchHistory();
+    })
+
+    // event-listener for clear history
+    clearHistory.addEventListener("click", function () {
+        localStorage.clear();
+        searchHistory = [];
+        renderSearchHistory();
+    })
