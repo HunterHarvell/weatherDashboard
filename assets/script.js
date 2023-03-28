@@ -75,7 +75,7 @@ function startPage() {
                             
                             // wind for forecast
                             const forecastWindModule = document.createElement("p");
-                            forecastWindModule.innerHTML = "Wind: " + response.data.wind.speed + " MPH";
+                            forecastWindModule.innerHTML = "Wind: " + response.data.list[forecastIndex].wind.speed + " MPH";
                             forecastModules[i].append(forecastWindModule);
                             
                             // humidity for forecast
@@ -102,3 +102,32 @@ function startPage() {
         searchHistory = [];
         renderSearchHistory();
     })
+
+    // helper function for temp
+    function k2f(K) {
+        return Math.floor((K - 273.15) * 1.8 + 32);
+    }
+
+    // renders search history
+    function renderSearchHistory() {
+        history.innerHTML = "";
+        for (let i = 0; i < searchHistory.length; i++) {
+            const historyItem = document.createElement("input");
+            historyItem.setAttribute("type", "text");
+            historyItem.setAttribute("readonly", true);
+            historyItem.setAttribute("class", "form-control d-block bg-white");
+            historyItem.setAttribute("value", searchHistory[i]);
+            historyItem.addEventListener("click", function () {
+                getWeather(historyItem.value);
+            })
+            history.append(historyItem);
+        }
+    }
+
+    renderSearchHistory();
+    if (searchHistory.length > 0) {
+        getWeather(searchHistory[searchHistory.length - 1]);
+    }
+}
+
+startPage();

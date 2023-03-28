@@ -23,4 +23,4 @@ Deployed Application: https://hunterharvell.github.io/weather-dashboard/
 My Repository: https://github.com/HunterHarvell/weather-dashboard.git
 Open Weather Map: https://openweathermap.org/
 
-Screenshot: ![screenshot](./assets/weather-dashboard.png)
+Screenshot: ![screenshot](./assets/weatherScreenshot.png)
