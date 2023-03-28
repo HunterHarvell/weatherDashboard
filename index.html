@@ -12,3 +12,35 @@
     <header class="container-fluid text-center text-white bg-secondary p-3">
         <h1>Weather Dashboard</h1>
     </header>
+
+    <!-- main body section -->
+    <section class="container-fluid">
+        <section class="row">
+            <!-- search aside -->
+            <aside class="col-lg-3 bg-light">
+                <h5 class="mt-1">Search by City:</h5>
+                <div class="input-group mb-3">
+                    <input id="searchInput" type="text" class="form-control" placeholder="Enter city here..." aria-label="Enter city here">
+                    <div class="input-group-append">
+                        <button class="btn btn-info" type="button" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-info mb-3" type="button" id="clearHistory">Clear history</button>
+                <form id="history"></form>
+            </aside>
+            <!-- today's weather section -->
+            <section class="col-lg-9">
+                <!-- current weather -->
+                <div class="row mr-0">
+                    <div class="col-lg-11 card m-3 d-none" id="currentWeather">
+                        <div class="card-body">
+                            <h3 id="cityName" class="city-name align-middle"></h3>
+                            <img id="weatherSymbol" alt="">
+                            <p id="temp"></p>
+                            <p id="humidity"></p>
+                            <p id="windSpeed"></p>
+                        </div>
+                    </div>
+                </div>
